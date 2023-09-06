@@ -8,7 +8,7 @@ type Categories = {
   name: string;
 }[];
 
-const PopularTopics = async () => {
+const PopularTopics = async (): Promise<JSX.Element> => {
   const categories: Categories = await prisma.category.findMany();
   console.log(categories);
   return <RenderPopularTopics categories={categories} />;
