@@ -10,7 +10,7 @@ async function main() {
                 published:true,
                 userId:1,
                 categoryId:1,
-                editorPick:false,
+                editorPick:true,
                 bigPost:false,
             }
         })
