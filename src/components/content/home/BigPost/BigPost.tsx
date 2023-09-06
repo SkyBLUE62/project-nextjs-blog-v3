@@ -7,8 +7,6 @@ import HorizontalSeparator from "@/components/utilities/HorizontalSeparator";
 import { Date } from "@/components/utilities/Date";
 
 interface Post {
-  published: boolean;
-  bigPost: boolean;
   title: string;
   description: string;
   image: string;

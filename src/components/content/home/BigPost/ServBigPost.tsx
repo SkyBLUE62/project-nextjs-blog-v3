@@ -3,8 +3,6 @@ import prisma from "@/db/prisma";
 import BigPost from "./BigPost";
 
 interface Post {
-  published: boolean;
-  bigPost: boolean;
   title: string;
   description: string;
   image: string;
@@ -19,8 +17,6 @@ const ServBigPost = async () => {
       bigPost: true,
     },
     select: {
-      published: true,
-      bigPost: true,
       title: true,
       description: true,
       image: true,
