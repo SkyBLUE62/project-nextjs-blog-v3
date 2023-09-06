@@ -3,7 +3,6 @@ import CardTopics from "@/components/card/cardTopics/CardTopics";
 import { useActualCategory } from "../../../context/ActualCategory";
 const FilterTopics = () => {
   const { filterCategory, setFilterCategory } = useActualCategory();
-  console.log(filterCategory);
 
   const topics = [
     { category: "all" },
