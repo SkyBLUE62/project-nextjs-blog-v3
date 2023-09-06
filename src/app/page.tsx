@@ -8,6 +8,7 @@ import EditorPick from "@/components/content/home/EditorPick/EditorPick";
 export default function Home() {
   return (
     <Template sliders={<HomeSliders />}>
+      {/* @ts-expect-error Server Component */}
       <PopularTopics />
       <BigPost />
       <EditorPick />
