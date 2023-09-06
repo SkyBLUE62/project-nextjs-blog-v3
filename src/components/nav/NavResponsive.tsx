@@ -68,7 +68,7 @@ const NavResponsive = () => {
             className={`h-screen w-1/4 z-98 absolute top-0 left-0 animate__animated ${skewAnimation} bg-center bg-cover bg-no-repeat`}
           >
             <div
-              className={`absolute skew-div bg-nav-responsive bg-cover w-full h-full z-98 top-0 -left-14`}
+              className={`absolute -skew-x-6 bg-nav-responsive bg-cover w-full h-full z-98 top-0 -left-14`}
             ></div>
           </div>
 
