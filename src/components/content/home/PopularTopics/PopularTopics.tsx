@@ -10,6 +10,20 @@ type Categories = {
 
 const PopularTopics = async (): Promise<JSX.Element> => {
   const categories: Categories = await prisma.category.findMany();
+  const posts = await prisma.post.findMany({
+    where: {
+      published: true,
+      popularTopics: true,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+      category: true,
+      createdAt: true,
+    },
+  });
   return <RenderPopularTopics categories={categories} />;
 };
 export default PopularTopics;
