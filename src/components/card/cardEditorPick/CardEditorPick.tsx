@@ -1,12 +1,13 @@
 import React from "react";
 import CardEditorContent from "./CardEditorContent";
 import CategoryUi from "@/components/utilities/CategoryUi";
+
 type Props = {
   image: string;
   date: string;
   title: string;
   description: string;
-  category: string[];
+  category:  string;
 };
 const CardEditorPick: React.FC<Props> = ({
   image,
@@ -24,9 +25,7 @@ const CardEditorPick: React.FC<Props> = ({
       }}
     >
       <div className="mx-auto flex flex-row  justify-end gap-2 xl:gap-6 pt-5 pr-5">
-        {category.map((category, index) => {
-          return <CategoryUi key={index} category={category} />;
-        })}
+         <CategoryUi category={category} />;
       </div>
       <div className="flex flex-col pl-10 w-full h-full justify-center pb-10 gap-6">
         <CardEditorContent
