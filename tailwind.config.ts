@@ -50,7 +50,6 @@ const config: Config = {
         'nav-responsive': 'url("/assets/images/homeBg1.png")',
         'skew-responsive': 'url("/assets/images/homeBg2.png")',
         'header-image': 'url("/assets/images/homeBg1.png")',
-        'bigPost' : 'url("/assets/images/bigPost.png")',
       },
       borderColor: {
         'nav': '#D4A373'
