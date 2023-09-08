@@ -12,6 +12,7 @@ async function main() {
                 categoryId:1,
                 editorPick:true,
                 bigPost:false,
+                popularTopics:true
             }
         })
 
