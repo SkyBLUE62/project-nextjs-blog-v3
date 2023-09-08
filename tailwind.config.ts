@@ -23,6 +23,7 @@ const config: Config = {
         'white' : '#FFF',
         'title': '#495057'
       },
+      
       backgroundColor: {
         'header-color-slider': 'rgba(0, 0, 0, 0.2)',
         'header': 'rgba(0, 0, 0, 1)',
