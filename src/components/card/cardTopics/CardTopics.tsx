@@ -19,7 +19,7 @@ interface Post {
 
 const CardTopics = ({ post }: Props) => {
   const { title, description, image, createdAt } = post;
-
+  const { name, job } = post.user;
   return (
     <div className="flex-col flex rounded-md h-card w-card shadow-2xl">
       <CardHeader
@@ -36,12 +36,7 @@ const CardTopics = ({ post }: Props) => {
         />
         <hr />
         <div className="flex flex-row h-full items-center py-3 px-5">
-          <CardAuthor
-            src={"author.png"}
-            alt="author"
-            author="John Doe"
-            job="Web Developer"
-          />
+          <CardAuthor src={"author.png"} alt={name} author={name} job={job} />
         </div>
       </div>
     </div>
