@@ -1,13 +1,12 @@
-import React from "react";
+"use server"
+
 import Nav from "../nav/Nav";
 import NavResponsive from "../nav/NavResponsive";
-
 type Props = {
   slidersExist?: React.JSX.Element;
 };
 
-const Header = ({ slidersExist }: Props) => {
-  console.log(slidersExist);
+const Header = async ({ slidersExist }: Props) => {
   return (
     <>
       <header
