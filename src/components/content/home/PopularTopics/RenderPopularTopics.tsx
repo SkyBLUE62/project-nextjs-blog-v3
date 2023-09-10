@@ -28,7 +28,7 @@ const RenderPopularTopics = (props: Props) => {
   return (
     <ActualCategoryProvider>
       <div className="h-full w-full flex flex-col max-w-10xl mx-auto xl:py-20 py-10  space-y-14">
-        <h1 className="font-Lora text-4xl font-bold pl-4 xl:pl-0 text-title">
+        <h1 className="font-Lora lg:text-left text-center text-4xl font-bold  xl:pl-0 text-title">
           Popular topics
         </h1>
         <FilterNav categories={props.categories} />
