@@ -27,7 +27,7 @@ const config: Config = {
       backgroundColor: {
         'header-color-slider': 'rgba(0, 0, 0, 0.2)',
         'header': 'rgba(0, 0, 0, 1)',
-        'category': 'rgba(255, 255, 255, 0.15)',
+        'category': 'rgba(0, 0, 0, 0.25)',
         'footer' : '#212529'
       },
       maxWidth: {
