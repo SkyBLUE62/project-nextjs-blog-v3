@@ -7,7 +7,22 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styles from "../../../styles/homeSwiper.module.css";
 
-const HomeSliders = () => {
+interface Slides {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  category: { id: number; createdAt: Date; name: string } | null;
+  createdAt: Date;
+}
+
+type Props = {
+  slides: Slides[];
+};
+
+const HomeSliders = (slides: Props) => {
+  console.log(slides);
+  const ArrSlides = slides.slides;
   const paginateStyles: any = {
     "--swiper-pagination-color": "#FFF",
     "--swiper-pagination-bullet-inactive-color": "#FFF",
@@ -56,62 +71,36 @@ const HomeSliders = () => {
         style={paginateStyles}
         ref={swiperRef}
       >
-        <SwiperSlide>
-          <div
-            className="absolute  top-0 z-30 h-full md:h-4.75xl w-screen bg-cover bg-no-repeat bg-center"
-            style={{ backgroundImage: 'url("/assets/images/homeBg1.png")' }}
-          >
-            <div className="relative h-full w-screen">
-              <div className="flex flex-col md:top-64 top-28 left-4 md:left-20  absolute space-y-3 md:w-4.33xl w-full">
-                <div className="py-2 px-3 flex justify-center w-28 h-auto text-white font-Roboto text-sm font-bold bg-category rounded-xl">
-                  <span>ADVENTURE 1</span>
-                </div>
-                <h1 className="font-Lora text-4xl font-bold text-white">
-                  Richird Norton photorealistic rendering as real photos
-                </h1>
-                <div className="flex flex-col md:flex-row items-left md:items-center  md:w-full md:space-x-2 space-y-2">
-                  <span className="text-white  font-Lora text-sm font-normal">
-                    08.08.2021
-                  </span>
-                  <div className="w-8 h-[1px] bg-primary"></div>
-                  <p className="font-Lora text-sm w-2/3 md:w-full text-primary font-normal">
-                    Progressively incentivize cooperative systems through
-                    technically sound functionalities. The credibly productivate
-                    seamless data.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div
-            className="absolute  top-0 z-30 h-full md:h-4.75xl w-screen bg-cover bg-no-repeat bg-center"
-            style={{ backgroundImage: 'url("/assets/images/homeBg1.png")' }}
-          >
-            <div className="relative h-full w-screen">
-              <div className="flex flex-col md:top-64 top-28 left-4 md:left-20  absolute space-y-3 md:w-4.33xl w-full">
-                <div className="py-2 px-3 flex justify-center w-28 h-auto text-white font-Roboto text-sm font-bold bg-category rounded-xl">
-                  <span>ADVENTURE 1</span>
-                </div>
-                <h1 className="font-Lora text-4xl font-bold text-white">
-                  Richird Norton photorealistic rendering as real photos
-                </h1>
-                <div className="flex flex-col md:flex-row items-left md:items-center  md:w-full md:space-x-2 space-y-2">
-                  <span className="text-white  font-Lora text-sm font-normal">
-                    08.08.2021
-                  </span>
-                  <div className="w-8 h-[1px] bg-primary"></div>
-                  <p className="font-Lora text-sm w-2/3 md:w-full text-primary font-normal">
-                    Progressively incentivize cooperative systems through
-                    technically sound functionalities. The credibly productivate
-                    seamless data.
-                  </p>
+        {ArrSlides.map((slide, index) => (
+          <SwiperSlide>
+            <div
+              className="absolute  top-0 z-30 h-full md:h-4.75xl w-screen bg-cover bg-no-repeat bg-center"
+              style={{
+                backgroundImage: 'url("/assets/images/' + slide.image + '")',
+              }}
+            >
+              <div className="relative h-full w-screen">
+                <div className="flex flex-col md:top-64 top-28 left-4 md:left-20  absolute space-y-3 md:w-4.33xl w-full">
+                  <div className="py-2 px-3 flex justify-center w-28 h-auto text-white font-Roboto text-sm font-bold bg-category rounded-xl">
+                    <span>{slide.category?.name}</span>
+                  </div>
+                  <h1 className="font-Lora text-4xl font-bold text-white">
+                    {slide.title}
+                  </h1>
+                  <div className="flex flex-col md:flex-row items-left md:items-center  md:w-full md:space-x-2 space-y-2">
+                    <span className="text-white w-[25%] lg:w-[20%] font-Lora text-sm font-normal">
+                      {slide.createdAt.toISOString().split("T")[0]}
+                    </span>
+                    <div className="w-8 h-[1px] bg-primary"></div>
+                    <p className="font-Lora text-sm w-2/3 md:w-full text-primary font-normal">
+                      {slide.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
