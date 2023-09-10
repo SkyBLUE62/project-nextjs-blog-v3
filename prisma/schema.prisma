@@ -32,13 +32,16 @@ model Post {
   id            Int      @id @default(autoincrement())
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  title         String   @db.VarChar(255)
-  description   String   @db.MediumText
-  image         String   @db.VarChar(255)
+  title         String   @default("") @db.VarChar(255)
+  slug          String   @default("") @db.VarChar(255)
+  description   String   @default("") @db.MediumText
+  content       String   @default("") @db.MediumText
+  image         String   @default("") @db.VarChar(255)
   published     Boolean  @default(false)
   popularTopics Boolean  @default(false)
   editorPick    Boolean  @default(false)
   bigPost       Boolean  @default(false)
+  slide         Boolean  @default(false)
   userId        Int
   user          User     @relation(fields: [userId], references: [id])
   category      Category @relation(fields: [categoryId], references: [id])
