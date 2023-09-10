@@ -15,9 +15,9 @@ type Props = {
   popularPosts: Post[];
 };
 
-const FilterTopics = (popularPosts: Props) => {
+const FilterTopics = (props: Props) => {
   const { filterCategory, setFilterCategory } = useActualCategory();
-  const posts = popularPosts.popularPosts;
+  const posts = props.popularPosts;
 
   return (
     <>
