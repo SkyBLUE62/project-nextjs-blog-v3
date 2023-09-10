@@ -13,6 +13,8 @@ type Props = {
 };
 
 const FilterNav = (categories: Props) => {
+  const ArrCategories = categories.categories;
+  console.log(ArrCategories);
   const { filterCategory, setFilterCategory } = useActualCategory();
 
   const handleFilter = (category: string) => {
@@ -30,7 +32,7 @@ const FilterNav = (categories: Props) => {
         All
       </li>
 
-      {categories.categories.map((category) => (
+      {ArrCategories.map((category) => (
         <li
           key={category.id}
           onClick={() => handleFilter(category.name)}
@@ -41,10 +43,6 @@ const FilterNav = (categories: Props) => {
           {category.name}
         </li>
       ))}
-
-      <li className="text-title text-sm font-Lora font-bold cursor-pointer">
-        View More
-      </li>
     </ul>
   );
 };
