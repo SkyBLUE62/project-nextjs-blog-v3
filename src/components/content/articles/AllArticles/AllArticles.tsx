@@ -5,6 +5,7 @@ import { ActualCategoryProvider } from "../../../context/ActualCategory";
 import H1Title from "@/components/utilities/H1Title";
 import FilterTopics from "../../home/PopularTopics/FilterTopics";
 
+
 type Categories = {
   id: number;
   createdAt: Date;
