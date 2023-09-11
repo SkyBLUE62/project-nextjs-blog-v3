@@ -3,7 +3,7 @@ import "../../styles/hamburger.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "RUNO | Home",
   description: "Home page",
 };
 
