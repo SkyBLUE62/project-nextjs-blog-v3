@@ -2,6 +2,9 @@
 import Template from "@/components/template/Template";
 import AllArticles from "@/components/content/articles/AllArticles/AllArticles";
 import prisma from "@/db/prisma";
+
+
+
 const page = async () => {
   const categories = await prisma.category.findMany({
     where: {
@@ -32,6 +35,7 @@ const page = async () => {
       category: true,
     },
   });
+
   return (
     <Template>
       <AllArticles categories={categories} allPosts={posts} />
