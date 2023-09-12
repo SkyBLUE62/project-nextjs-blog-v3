@@ -7,12 +7,12 @@ const page = () => {
   return (
     <div>
       <Template>
-        <div className="max-w-10xl mx-auto">
+        <div className="max-w-10xl xl:max-w-6xl mx-auto xl:h-[70vh]">
           <H1Title
             title="Who we are ?"
             className="text-secondary text-center xl:text-left"
           />
-          <div className="flex xl:flex-row flex-col">
+          <div className="flex xl:flex-row flex-col xl:gap-10 xl:mt-10">
             <Image
               src={"/assets/images/who-we_are.avif"}
               alt="who we are"
