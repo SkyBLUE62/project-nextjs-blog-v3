@@ -13,7 +13,7 @@ const Template = ({ children = null, sliders }: Props) => {
   console.log(isServer);
 
   return (
-    <div className="min-w-screen  min-h-screen bg-[#F8F9FA] overflow-hidden relative">
+    <div className="min-w-screen min-h-screen bg-[#F8F9FA] overflow-hidden relative">
       <div
         className={` ${
           sliders != undefined ? "h-4.75xl" : "h-full"
