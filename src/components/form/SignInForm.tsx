@@ -11,11 +11,13 @@ import TextField from "@mui/material/TextField";
 const schemaUser = object({
   email: string()
     .email("Invalid email address")
-    .required("Please enter a valid email address"),
+    .required("Please enter a valid email address")
+    .trim(),
   password: string()
     .required("Please enter a password")
     .min(8, "Must be between 9 and 26 characters")
-    .max(32, "Must be between 9 and 26 characters"),
+    .max(26, "Must be between 9 and 26 characters")
+    .trim(),
 }).required();
 
 type InputsData = {
@@ -55,7 +57,7 @@ const SignInForm = () => {
         defaultValue=""
         render={({ field }) => (
           <TextField
-            placeholder="Email"
+            placeholder=""
             type="email"
             label="Email"
             helperText={errors?.email ? errors?.email?.message : ""}
@@ -72,7 +74,7 @@ const SignInForm = () => {
         defaultValue=""
         render={({ field }) => (
           <TextField
-            placeholder="Password"
+            placeholder=""
             type="password"
             label="Password"
             helperText={errors?.password ? errors?.password?.message : ""}
