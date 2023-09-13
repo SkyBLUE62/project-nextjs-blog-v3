@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `post` MODIFY `description` MEDIUMTEXT NOT NULL DEFAULT '',
+    MODIFY `content` MEDIUMTEXT NOT NULL DEFAULT '';
+
+-- AlterTable
+ALTER TABLE `user` MODIFY `name` VARCHAR(191) NOT NULL;
