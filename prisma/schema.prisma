@@ -11,14 +11,51 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  email     String    @unique
   name      String
-  password  String   @default("")
-  job       String   @default("")
-  role      Role     @default(USER)
+  password  String    @default("")
+  job       String    @default("")
+  role      Role      @default(USER)
   Post      Post[]
+  accounts  Account[]
+  sessions  Session[]
+}
+
+model Account {
+  id            String  @id @default(cuid())
+  type          String
+  provider      String  @db.VarChar(191)
+  accountId     String  @db.VarChar(191)
+  refresh_token String? @db.Text
+  access_token  String? @db.Text
+  expires_at    Int?
+  token_type    String?
+  scope         String?
+  id_token      String? @db.Text
+  session_state String?
+  userId        String
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, accountId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  expires      DateTime
+  userId       String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Category {
@@ -42,7 +79,7 @@ model Post {
   editorPick    Boolean  @default(false)
   bigPost       Boolean  @default(false)
   slide         Boolean  @default(false)
-  userId        Int
+  userId        String
   user          User     @relation(fields: [userId], references: [id])
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    Int
