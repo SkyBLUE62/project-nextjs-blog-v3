@@ -1,10 +1,11 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
+import AppleProvider from "next-auth/providers/apple"
+
 
 const prisma = new PrismaClient();
 
-export default NextAuth({
-  adapter: PrismaAdapter(prisma),
-  providers: [],
-});
+const handler = NextAuth()
+
+export {handler as GET, handler as POST}
