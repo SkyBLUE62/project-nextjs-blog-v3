@@ -33,8 +33,3 @@ export async function POST(req: Request, res: Response) {
         await prisma.$disconnect();
     }
 };
-
-
-export const GET = async (req: Request, res: Response) => {
- return new Response("hello register")
-}
