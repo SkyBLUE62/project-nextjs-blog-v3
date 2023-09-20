@@ -7,6 +7,8 @@ import { object, string } from "yup";
 import clsx from "clsx";
 
 import TextField from "@mui/material/TextField";
+import { signIn } from "next-auth/react";
+import { useParams } from "next/navigation";
 
 const schemaUser = object({
   email: string()
@@ -15,19 +17,13 @@ const schemaUser = object({
     .trim(),
   password: string()
     .required("Please enter a password")
-    .min(8, "Must be between 9 and 26 characters")
-    .max(26, "Must be between 9 and 26 characters")
+    .min(8, "Must be between 8 and 26 characters")
+    .max(26, "Must be between 8 and 26 characters")
     .trim(),
 }).required();
 
-type InputsData = {
-  email: string;
-  password: string;
-};
-
 // Login Form
 const SignInForm = () => {
-  const [error, setError] = useState("");
   const {
     control,
     handleSubmit,
@@ -35,13 +31,20 @@ const SignInForm = () => {
   } = useForm({
     resolver: yupResolver(schemaUser),
   });
-
-  const onSubmit = (data: any) => {
-    const { email, password } = data;
-    console.log(data);
+  const [error, seterror] = useState<string>("");
+  const onSubmit = async (data: any) => {
     try {
-    } catch (e: any) {
-      setError(e.message);
+      const { email, password } = data;
+      console.log(data);
+      const res = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: true,
+        callbackUrl: "/",
+      });
+      console.log("Res", res);
+    } catch (error) {
+      seterror("Invalid email or password");
     }
   };
 
@@ -51,6 +54,7 @@ const SignInForm = () => {
       className="flex flex-col gap-5"
       onSubmit={handleSubmit(onSubmit)}
     >
+      {error && <p className="text-red-500">{error}</p>}
       <Controller
         name="email"
         control={control}
