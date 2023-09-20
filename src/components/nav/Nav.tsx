@@ -5,6 +5,7 @@ import VerticalSeparator from "../utilities/VerticalSeparator";
 import "animate.css";
 import { BsFacebook, BsTwitter, BsYoutube, BsPinterest } from "react-icons/bs";
 import { FaBehanceSquare } from "react-icons/fa";
+import { signIn, signOut } from "next-auth/react";
 
 const Nav = () => {
   return (
@@ -58,6 +59,9 @@ const Nav = () => {
             <Link href={"#"}>
               <FaBehanceSquare className="w-5 h-5 text-social-icons" />
             </Link>
+          </li>
+          <li>
+            <button onClick={() => signIn()}>Sign in</button>
           </li>
         </ul>
       </nav>
