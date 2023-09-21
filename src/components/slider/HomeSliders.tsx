@@ -21,7 +21,6 @@ type Props = {
 };
 
 const HomeSliders = (slides: Props) => {
-  console.log(slides);
   const ArrSlides = slides.slides;
   const paginateStyles: any = {
     "--swiper-pagination-color": "#FFF",
