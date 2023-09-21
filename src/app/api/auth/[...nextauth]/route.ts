@@ -19,7 +19,11 @@ export const authOptions: NextAuthOptions = {
             type: 'email',
             placeholder: 'hello@example.com'
           },
-          password: { label: 'Password', type: 'password' }
+          password: { label: 'Password', type: 'password' },
+          register: {
+            label: 'Register',
+            type: 'checkbox'
+          }
         },
         async authorize(credentials) {
           if (!credentials?.email || !credentials.password) {
@@ -33,18 +37,26 @@ export const authOptions: NextAuthOptions = {
           })
   
           if (!user) {
-            return null
+            console.log("Utilisateur non trouvé.");
+            return null;
           }
-  
+          if (!credentials.register) {
+
           const isPasswordValid = await compare(
-            credentials.password,
-            user.password
-          )
-  
+            credentials.password, 
+            user.password 
+          );
+
+          console.log("Credentials: ",credentials.password," ", "user.password: ", user.password);
+          console.log(isPasswordValid);
+
           if (!isPasswordValid) {
-            return null
+            console.log("Mot de passe incorrect.");
+            return null;
           }
-  
+        }
+
+          console.log("Authentification réussie !");
           return user
         }
       })
