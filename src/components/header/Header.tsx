@@ -1,17 +1,20 @@
-"use server"
+"use client";
 
 import Nav from "../nav/Nav";
 import NavResponsive from "../nav/NavResponsive";
+import {SessionProvider} from "next-auth/react";
 type Props = {
   slidersExist?: React.JSX.Element;
 };
 
-const Header = async ({ slidersExist }: Props) => {
+const Header = ({ slidersExist }: Props) => {
   return (
-    <>
+    <SessionProvider>
       <header
         className={`sticky top-0 z-40 h-20 w-screen ${
-          slidersExist !== undefined ? "bg-header-color-slider" : "bg-header-image bg-cover bg-top"
+          slidersExist !== undefined
+            ? "bg-header-color-slider"
+            : "bg-header-image bg-cover bg-top"
         }`}
       >
         <div className="max-w-10xl h-full mx-auto flex flex-row justify-between items-center">
@@ -22,7 +25,7 @@ const Header = async ({ slidersExist }: Props) => {
         </div>
       </header>
       <NavResponsive />
-    </>
+    </SessionProvider>
   );
 };
 
