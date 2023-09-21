@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string } from "yup";
-import clsx from "clsx";
 
 import TextField from "@mui/material/TextField";
 import { signIn } from "next-auth/react";
-import { useParams } from "next/navigation";
+import clsx from "clsx";
 
 const schemaUser = object({
   email: string()
