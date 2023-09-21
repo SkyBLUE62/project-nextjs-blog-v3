@@ -7,11 +7,12 @@ import { object, ref, string } from "yup";
 import clsx from "clsx";
 
 import TextField from "@mui/material/TextField";
+import { signIn } from "next-auth/react";
 
 const schemaUser = object({
   name: string()
-    .min(4, "Must be between 4 and 12 characters")
-    .max(12, "Must be between 4 and 12 characters")
+    .min(4, "Must be between 4 and 16 characters")
+    .max(16, "Must be between 4 and 16 characters")
     .required("Please enter your name")
     .trim(),
   job: string().required("Please enter your job").trim(),
@@ -31,7 +32,7 @@ const schemaUser = object({
 }).required();
 
 // Register Form
-const SignUpForm = () => {
+const SignUpForm: React.FC = () => {
   const [error, setError] = useState("");
   const {
     control,
@@ -41,10 +42,37 @@ const SignUpForm = () => {
     resolver: yupResolver(schemaUser),
   });
 
-  const onSubmit = (data: any) => {
-    const { email, password, name, job, confirmPassword } = data;
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    const { email, password, name, job } = data;
     try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+          name,
+          job,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data.email + " " + data.password);
+
+        const result = await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          register: true,
+          redirect: true,
+          callbackUrl: "/",
+        });
+        console.log(result);
+      } else {
+        console.log("Erreur lors de l'inscription");
+      }
     } catch (e: any) {
       setError(e.message);
     }
