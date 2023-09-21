@@ -24,13 +24,13 @@ export default async function Home() {
   });
 
   return (
-    <Template sliders={slides && <HomeSliders slides={slides} />}>
-      {/* @ts-expect-error Server Component */}
-      <PopularTopics />
-      {/* @ts-expect-error Server Component */}
-      <ServBigPost />
-      {/* @ts-expect-error Server Component */}
-      <ServEditorPick />
-    </Template>
+      <Template sliders={slides && <HomeSliders slides={slides} />}>
+        {/* @ts-expect-error Server Component */}
+        <PopularTopics />
+        {/* @ts-expect-error Server Component */}
+        <ServBigPost />
+        {/* @ts-expect-error Server Component */}
+        <ServEditorPick />
+      </Template>
   );
 }
