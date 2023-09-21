@@ -10,7 +10,6 @@ type Props = {
 
 const Template = ({ children = null, sliders }: Props) => {
   let isServer = typeof window !== "undefined" ? true : false;
-  console.log(isServer);
 
   return (
     <div className="min-w-screen min-h-screen bg-[#F8F9FA] overflow-hidden relative">
