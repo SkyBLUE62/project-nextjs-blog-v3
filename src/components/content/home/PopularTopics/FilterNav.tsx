@@ -14,7 +14,6 @@ type Props = {
 
 const FilterNav = (categories: Props) => {
   const ArrCategories = categories.categories;
-  console.log(ArrCategories);
   const { filterCategory, setFilterCategory } = useActualCategory();
 
   const handleFilter = (category: string) => {
