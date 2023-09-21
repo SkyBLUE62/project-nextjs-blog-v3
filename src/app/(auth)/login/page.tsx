@@ -1,3 +1,4 @@
+"use server";
 import SignInForm from "@/components/form/SignInForm";
 import Template from "@/components/template/Template";
 import Card from "@mui/joy/Card";
