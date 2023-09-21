@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import prisma from "@/db/prisma";
 import { NextResponse } from 'next/server'
+import { getSession, signIn } from "next-auth/react";
 
 type userData = {
     name: string,
@@ -11,25 +12,26 @@ type userData = {
 
 export async function POST(req: Request, res: Response) {
     const { name, email, password, job }: userData = await req.json();
-    const passwordHash: string = await bcrypt.hash(password, 10);
+
     if (await prisma.user.findUnique({ where: { email } })) {
         return new Response("User already exists", { status: 400 });
     }
 
     try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
         const user = await prisma.user.create({
-            data: {
-                name,
-                email,
-                password : passwordHash,
-                job,
-            },
+          data: {
+            email,
+            password: hashedPassword,
+            name,
+            job,
+          },
         });
+
         return new Response(JSON.stringify(user), { status: 201 });
-    } catch (error) {
-        console.error("Erreur lors de l'inscription :", error);
-        return new Response("Erreur lors de l'inscription", { status: 500 });
-    } finally {
-        await prisma.$disconnect();
-    }
+
+      } catch (error) {
+        return new Response("Register Error", { status: 500 });
+      }
 };
