@@ -64,8 +64,7 @@ const SignUpForm: React.FC = () => {
 
         const result = await signIn("credentials", {
           email: data.email,
-          password: data.password,
-          register: true,
+          password: password,
           redirect: true,
           callbackUrl: "/",
         });
