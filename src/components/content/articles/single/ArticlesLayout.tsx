@@ -18,7 +18,6 @@ type Props = {
 const ArticlesLayout = (article: Props) => {
   const { title, content, image, category, createdAt, updatedAt, user } =
     article.article;
-  console.log(category.name);
   return (
     <div className="max-w-10xl mx-auto py-10 flex flex-col gap-5">
       <h1 className="text-center text-title xl:text-left text-4xl font-bold font-Lora">
