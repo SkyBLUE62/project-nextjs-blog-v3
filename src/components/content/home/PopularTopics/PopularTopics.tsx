@@ -51,7 +51,6 @@ const PopularTopics = async (): Promise<JSX.Element> => {
     },
   });
 
-  console.log(posts);
   if (posts.length === 0 && categories.length === 0) {
     return <></>;
   }
