@@ -18,7 +18,6 @@ interface BigPostProps {
 
 const EditorPick = (posts: BigPostProps) => {
   const postEditorPick = posts.posts;
-  console.log(posts);
 
   return (
     <div className="xl:h-4.75xl h-auto w-full xl:py-20 py-10 max-w-10xl mx-auto">
