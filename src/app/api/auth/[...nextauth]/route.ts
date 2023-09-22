@@ -1,4 +1,4 @@
-import { compare } from 'bcrypt'
+import  { compare } from 'bcrypt'
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from '@/db/prisma'
@@ -20,10 +20,6 @@ export const authOptions: NextAuthOptions = {
             placeholder: 'hello@example.com'
           },
           password: { label: 'Password', type: 'password' },
-          register: {
-            label: 'Register',
-            type: 'checkbox'
-          }
         },
         async authorize(credentials) {
           if (!credentials?.email || !credentials.password) {
@@ -40,7 +36,6 @@ export const authOptions: NextAuthOptions = {
             console.log("Utilisateur non trouvé.");
             return null;
           }
-          if (!credentials.register) {
 
           const isPasswordValid = await compare(
             credentials.password, 
@@ -54,7 +49,6 @@ export const authOptions: NextAuthOptions = {
             console.log("Mot de passe incorrect.");
             return null;
           }
-        }
 
           console.log("Authentification réussie !");
           return user
