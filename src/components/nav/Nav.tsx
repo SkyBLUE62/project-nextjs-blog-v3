@@ -1,19 +1,22 @@
-"use client";
-
+"use server";
 import VerticalSeparator from "../utilities/VerticalSeparator";
 import "animate.css";
 import { BsFacebook, BsTwitter, BsYoutube, BsPinterest } from "react-icons/bs";
 import { FaBehanceSquare } from "react-icons/fa";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect } from "react";
+import { isLogin } from "@/auth";
+import ButtonAuth from "../utilities/ButtonAuth";
+const Nav = async () => {
+  const session = await isLogin();
 
-const Nav = () => {
-  const { data } = useSession();
+  let isLoginStatue: boolean = false;
+  if (session) {
+    isLoginStatue = true;
+  } else {
+    isLoginStatue = false;
+  }
 
-  useEffect(() => {}, [data]);
-
-  console.log(data);
   return (
     <>
       {/* Computer Nav */}
@@ -67,11 +70,7 @@ const Nav = () => {
             </Link>
           </li>
           <li>
-            {data?.user ? (
-              <button onClick={() => signOut()}>Sign out</button>
-            ) : (
-              <button onClick={() => signIn()}>Sign in</button>
-            )}
+            <ButtonAuth isLoggedIn={isLoginStatue} />
           </li>
         </ul>
       </nav>
