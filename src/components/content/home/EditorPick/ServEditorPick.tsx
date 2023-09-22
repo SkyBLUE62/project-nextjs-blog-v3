@@ -18,7 +18,6 @@ const ServEditorPick = async () => {
     },
   });
 
-  console.log(posts);
   if (posts.length > 1) {
     return <EditorPick posts={posts} />;
   }
