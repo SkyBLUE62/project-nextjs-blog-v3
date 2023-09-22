@@ -71,7 +71,7 @@ const HomeSliders = (slides: Props) => {
         ref={swiperRef}
       >
         {ArrSlides.map((slide, index) => (
-          <SwiperSlide>
+          <SwiperSlide key={index}>
             <div
               className="absolute  top-0 z-30 h-full md:h-4.75xl w-screen bg-cover bg-no-repeat bg-center"
               style={{
