@@ -10,7 +10,6 @@ import { Suspense } from "react";
 import { Loader } from "@/components/loader/Loader";
 
 export default async function Home() {
-  
   const slides = await prisma.post.findMany({
     where: {
       published: true,
@@ -27,15 +26,13 @@ export default async function Home() {
   });
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Template sliders={slides && <HomeSliders slides={slides} />}>
-        {/* @ts-expect-error Server Component */}
-        <PopularTopics />
-        {/* @ts-expect-error Server Component */}
-        <ServBigPost />
-        {/* @ts-expect-error Server Component */}
-        <ServEditorPick />
-      </Template>
-    </Suspense>
+    <Template sliders={slides && <HomeSliders slides={slides} />}>
+      {/* @ts-expect-error Server Component */}
+      <PopularTopics />
+      {/* @ts-expect-error Server Component */}
+      <ServBigPost />
+      {/* @ts-expect-error Server Component */}
+      <ServEditorPick />
+    </Template>
   );
 }
