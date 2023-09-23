@@ -3,7 +3,6 @@ import VerticalSeparator from "../utilities/VerticalSeparator";
 import "animate.css";
 import { BsFacebook, BsTwitter, BsYoutube, BsPinterest } from "react-icons/bs";
 import { FaBehanceSquare } from "react-icons/fa";
-import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { isLogin } from "@/auth";
 import ButtonAuth from "../utilities/ButtonAuth";
