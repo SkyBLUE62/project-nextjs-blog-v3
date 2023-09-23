@@ -9,10 +9,15 @@ import {
   BsPinterest,
   BsSearch,
 } from "react-icons/bs";
+
 import { FaBehanceSquare } from "react-icons/fa";
 import Link from "next/link";
+import ButtonAuth from "../utilities/ButtonAuth";
+type Props = {
+  isLoggedIn: boolean;
+};
 
-const NavResponsive = () => {
+const NavResponsive = ({ isLoggedIn }: Props) => {
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
   const [respNavAnim, setRespNavAnim] = useState<string>("");
   const [skewAnimation, setSkewAnimation] = useState<string>("");
@@ -96,7 +101,9 @@ const NavResponsive = () => {
                   Contact us
                 </Link>
               </li>
-
+              <li>
+                <ButtonAuth isLoggedIn={isLoggedIn} />
+              </li>
               <div className="flex flex-row space-x-7">
                 <li>
                   <Link href={"#"}>
