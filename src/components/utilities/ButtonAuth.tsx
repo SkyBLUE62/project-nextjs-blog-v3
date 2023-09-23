@@ -8,6 +8,7 @@ type Props = {
 };
 
 const ButtonAuth = ({ isLoggedIn }: Props) => {
+  
   return (
     <>
       {isLoggedIn ? (
