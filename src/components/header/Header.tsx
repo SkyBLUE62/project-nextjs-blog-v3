@@ -1,4 +1,5 @@
 "use server";
+import { isLogin } from "@/auth";
 import Nav from "../nav/Nav";
 import NavResponsive from "../nav/NavResponsive";
 type Props = {
@@ -6,6 +7,15 @@ type Props = {
 };
 
 const Header = async ({ slidersExist }: Props) => {
+  const session = await isLogin();
+
+  let isLoginStatue: boolean = false;
+  if (session) {
+    isLoginStatue = true;
+  } else {
+    isLoginStatue = false;
+  }
+
   return (
     <>
       <header
@@ -19,10 +29,11 @@ const Header = async ({ slidersExist }: Props) => {
           <span className="font-spartan text-xl font-bold text-icon ml-3 xl:ml-0">
             RUNO
           </span>
+          {/* @ts-expect-error Server Component */}
           <Nav />
         </div>
       </header>
-      <NavResponsive />
+      <NavResponsive isLoggedIn={isLoginStatue} />
     </>
   );
 };
