@@ -8,6 +8,7 @@ import { object, string } from "yup";
 import TextField from "@mui/material/TextField";
 import { signIn } from "next-auth/react";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 const schemaUser = object({
   email: string()
@@ -23,14 +24,16 @@ const schemaUser = object({
 
 // Login Form
 const SignInForm = () => {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schemaUser),
   });
-  const [error, seterror] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const onSubmit = async (data: any) => {
     try {
       const { email, password } = data;
@@ -38,12 +41,22 @@ const SignInForm = () => {
       const res = await signIn("credentials", {
         email: email,
         password: password,
-        redirect: true,
+        redirect: false,
         callbackUrl: "/",
       });
       console.log("Res", res);
+
+      if (res == null) {
+        setError("Invalid email or password");
+        reset();
+        return;
+      } else {
+        router.push("/");
+      }
     } catch (error) {
-      seterror("Invalid email or password");
+      console.log("Res", error);
+      setError("Invalid email or password");
+      reset();
     }
   };
 
@@ -60,7 +73,6 @@ const SignInForm = () => {
         defaultValue=""
         render={({ field }) => (
           <TextField
-            placeholder=""
             type="email"
             label="Email"
             helperText={errors?.email ? errors?.email?.message : ""}
