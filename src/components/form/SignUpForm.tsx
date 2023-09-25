@@ -70,7 +70,7 @@ const SignUpForm: React.FC = () => {
         });
         console.log(result);
       } else {
-        console.log("Erreur lors de l'inscription");
+        setError("Register Error");
       }
     } catch (e: any) {
       setError(e.message);
