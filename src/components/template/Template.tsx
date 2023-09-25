@@ -18,6 +18,7 @@ const Template = ({ children = null, sliders }: Props) => {
           sliders != undefined ? "h-4.75xl" : "h-full"
         }    overflow-hidden`}
       >
+        {/* @ts-expect-error Server Component */}
         <Header slidersExist={sliders} />
         {sliders !== null && sliders}
       </div>
