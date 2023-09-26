@@ -1,48 +1,42 @@
 "use client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextField } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { object, string, mixed, number } from "yup";
 import slugify from "slugify";
 
-const schemaUser = object({
-  title: string().required("Please enter a title").trim().min(5, "Too short"),
+const schemaPost = object({
+  title: string().required("Please enter a title").min(5, "Too short"),
   description: string()
     .required("Please enter a description")
-    .trim()
     .min(5, "Too short"),
-  content: string()
-    .required("Please enter a content")
-    .trim()
-    .min(5, "Too short"),
-  slug: string().required("Please enter a slug").trim().min(5, "Too short"),
+  content: string().required("Please enter a content").min(5, "Too short"),
   category: number()
     .required("Please select a category")
     .integer("Category must be an integer"),
   image: mixed()
-    .test("fileSize", "File size is too large", (file) => {
-      if (!file) {
-        return true; // No file uploaded, so no size validation needed.
+    .test(
+      "fileSize",
+      "Le fichier est trop volumineux. La taille maximale autorisée est de 10 Mo.",
+      (value: FileList) => {
+        const maxSizeInBytes: number = 10 * 1024 * 1024; // 10 Mo
+        const fileTypeAccepted: string[] = [
+          "image/jpeg",
+          "image/png",
+          "image/jpg",
+        ];
+        if (!value[0]) {
+          return true; // Aucun fichier téléchargé, aucune validation de la taille nécessaire.
+        }
+        if (value[0].size >= maxSizeInBytes) {
+          return true;
+        }
+
+        console.log(value[0]);
+        return value[0];
       }
-      if (file instanceof File) {
-        return file.size <= 1024 * 1024 * 5; // 5MB maximum file size
-      }
-      return false; // Not a valid file type
-    })
-    .test("fileType", "Unsupported file type", (file) => {
-      if (!file) {
-        return true; // No file uploaded, so no type validation needed.
-      }
-      if (file instanceof File) {
-        const supportedExtensions = [".jpeg", ".jpg", ".png", ".gif"]; // Add more extensions as needed.
-        const fileExtension = file.name
-          .substr(file.name.lastIndexOf("."))
-          .toLowerCase();
-        return supportedExtensions.includes(fileExtension);
-      }
-      return false; // Not a valid file type
-    }),
+    )
+    .required("Veuillez télécharger un fichier"),
 }).required();
 
 const AddArticleForm = () => {
@@ -51,8 +45,9 @@ const AddArticleForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schemaUser),
+    resolver: yupResolver(schemaPost),
   });
+
   const [slug, setSlug] = useState<string>("");
   const handleSlug = (e: ChangeEvent<HTMLInputElement>) => {
     const newSlug = slugify(e.target.value, {
@@ -62,10 +57,10 @@ const AddArticleForm = () => {
       trim: true,
     });
     setSlug(newSlug);
-    console.log(newSlug);
+    console.log(newSlug); // Assurez-vous que la valeur de slug est correcte ici
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
   };
 
@@ -74,35 +69,78 @@ const AddArticleForm = () => {
       <Controller
         name="title"
         control={control}
+        defaultValue=""
         render={({ field }) => (
-          <TextField
-            placeholder=""
-            type="text"
-            label="Title"
-            helperText={errors?.title ? errors?.title?.message : ""}
-            {...field}
-            error={errors?.title ? true : false}
-            variant="standard"
-            onChange={handleSlug}
-          />
+          <div>
+            <input
+              type="text"
+              {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                handleSlug(e);
+              }}
+              placeholder="Title"
+            />
+            <p>{errors.title?.message}</p>
+          </div>
+        )}
+      />
+
+      <input type="text" placeholder="Slug" value={slug} readOnly />
+
+      <Controller
+        name="description"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <div>
+            <input type="text" {...field} placeholder="Description" />
+            <p>{errors.description?.message}</p>
+          </div>
         )}
       />
       <Controller
-        name="slug"
+        name="content"
         control={control}
+        defaultValue=""
         render={({ field }) => (
-          <TextField
-            placeholder="Slug"
-            type="text"
-            InputProps={{
-              readOnly: true,
-            }}
-            value={slug}
-            variant="standard"
-          />
+          <div>
+            <textarea {...field} placeholder="Content" />
+            <p>{errors.description?.message}</p>
+          </div>
         )}
       />
-      <button type="submit">Submit</button>
+
+      <Controller
+        name="category"
+        control={control}
+        render={({ field }) => (
+          <>
+            <select {...field} defaultValue="" placeholder="Content">
+              <option value="" disabled hidden>
+                Category
+              </option>
+              <option value={1}>Option 1</option>
+            </select>
+            <p>{errors.category?.message}</p>
+          </>
+        )}
+      />
+
+      <Controller
+        name="image"
+        control={control}
+        render={({ field }) => (
+          <>
+            <input
+              type="file"
+              onChange={(e) => field.onChange(e.target.files)}
+            />
+            {errors.image && <p>{errors.image.message}</p>}
+          </>
+        )}
+      />
+      <button>Submit</button>
     </form>
   );
 };
