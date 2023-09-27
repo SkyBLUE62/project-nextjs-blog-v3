@@ -60,7 +60,6 @@ const SignUpForm: React.FC = () => {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data.email + " " + data.password);
 
         const result = await signIn("credentials", {
           email: data.email,
