@@ -1,7 +1,5 @@
 import bcrypt from "bcrypt";
 import prisma from "@/db/prisma";
-import { NextResponse } from 'next/server'
-import { getSession, signIn } from "next-auth/react";
 
 type userData = {
     name: string,
