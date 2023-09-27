@@ -39,7 +39,16 @@ const schemaPost = object({
     .required("Veuillez télécharger un fichier"),
 }).required();
 
-const AddArticleForm = () => {
+type Category = {
+  id: number;
+  name: string;
+}[];
+
+type Props = {
+  category: Category;
+};
+
+const AddArticleForm = ({ category }: Props) => {
   const {
     control,
     handleSubmit,
@@ -57,15 +66,33 @@ const AddArticleForm = () => {
       trim: true,
     });
     setSlug(newSlug);
-    console.log(newSlug); // Assurez-vous que la valeur de slug est correcte ici
+    console.log(newSlug); 
   };
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      
+      const data = new FormData(e.target as HTMLFormElement);
+      data.append("image", data.get("image") as unknown as File);
+      console.log(data.get("image"));
+
+      const res = await fetch("/api/create-post", {
+        method: "POST",
+        body: data,
+      });
+      if (!res.ok) {
+        throw new Error("Une erreur est survenue");
+      }
+    } catch (e: any) {}
   };
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      encType="multipart/form-data"
+      className="flex flex-col gap-5"
+      onSubmit={(e) => onSubmit(e)}
+    >
       <Controller
         name="title"
         control={control}
@@ -114,13 +141,19 @@ const AddArticleForm = () => {
       <Controller
         name="category"
         control={control}
+        defaultValue={1}
         render={({ field }) => (
           <>
-            <select {...field} defaultValue="" placeholder="Content">
-              <option value="" disabled hidden>
-                Category
-              </option>
-              <option value={1}>Option 1</option>
+            <select {...field} placeholder="Content">
+              {category.map((category) => (
+                <option
+                  selected={category.id === 1 ? true : false}
+                  value={category.id}
+                  key={category.id}
+                >
+                  {category.name}
+                </option>
+              ))}
             </select>
             <p>{errors.category?.message}</p>
           </>
@@ -132,10 +165,7 @@ const AddArticleForm = () => {
         control={control}
         render={({ field }) => (
           <>
-            <input
-              type="file"
-              onChange={(e) => field.onChange(e.target.files)}
-            />
+            <input type="file" name="image" />
             {errors.image && <p>{errors.image.message}</p>}
           </>
         )}
