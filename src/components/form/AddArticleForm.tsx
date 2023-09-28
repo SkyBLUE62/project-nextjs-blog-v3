@@ -148,7 +148,7 @@ const AddArticleForm = ({ category }: Props) => {
               {category.map((category) => (
                 <option
                   selected={category.id === 1 ? true : false}
-                  value={category.id}
+                  value={category.id as number}
                   key={category.id}
                 >
                   {category.name}
