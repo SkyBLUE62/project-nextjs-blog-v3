@@ -60,7 +60,10 @@ export const authOptions: NextAuthOptions = {
           user: {
             ...session.user,
             id: token.id,
-            randomKey: token.randomKey
+            email: token.email,
+            name: token.name,
+            role: token.role,
+            randomKey: token.randomKey,
           }
         }
       },
