@@ -16,7 +16,7 @@ const CardEditorPick: React.FC<Props> = ({
   description,
   category,
 }) => {
-  const urlImage = `/assets/images/${image}`;
+  const urlImage = `${image}`;
   return (
     <div
       className={`xl:w-1/2 w-full xl:px-0 rounded-2xl  h-full bg-cover bg-no-repeat`}
