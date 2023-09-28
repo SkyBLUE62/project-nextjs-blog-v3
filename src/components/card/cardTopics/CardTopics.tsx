@@ -20,6 +20,7 @@ interface Post {
 const CardTopics = ({ post }: Props) => {
   const { title, description, image, createdAt } = post;
   const { name, job } = post.user;
+  console.log(image);
   return (
     <div className="flex-col flex rounded-md h-card w-card shadow-2xl">
       <CardHeader
