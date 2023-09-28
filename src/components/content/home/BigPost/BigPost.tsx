@@ -27,7 +27,7 @@ const BigPost = (post: BigPostProps) => {
     <div
       className="h-4.75xl w-full  bg-cover bg-no-repeat bg-top"
       style={{
-        backgroundImage: `url(/assets/images/${image})`,
+        backgroundImage: `url(${image})`,
       }}
     >
       <div className="flex flex-col items-center text-center gap-5 h-full justify-center w-1/3 mx-auto">
