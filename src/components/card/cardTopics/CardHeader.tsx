@@ -16,7 +16,7 @@ const CardHeader = ({ src, alt, category }: Props) => {
         </div>
       </div>
       <Image
-        src={`/assets/images/${src}`}
+        src={`${src}`}
         width={310}
         height={280}
         alt={alt}
