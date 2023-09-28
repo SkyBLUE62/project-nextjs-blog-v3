@@ -75,7 +75,7 @@ const HomeSliders = (slides: Props) => {
             <div
               className="absolute  top-0 z-30 h-full md:h-4.75xl w-screen bg-cover bg-no-repeat bg-center"
               style={{
-                backgroundImage: 'url("/assets/images/' + slide.image + '")',
+                backgroundImage: `url(${slide.image})`,
               }}
             >
               <div className="relative h-full w-screen">
