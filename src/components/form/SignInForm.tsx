@@ -44,9 +44,8 @@ const SignInForm = () => {
         redirect: false,
         callbackUrl: "/",
       });
-      console.log("Res", res);
-
-      if (res == null) {
+      console.log(res?.error);
+      if (res?.error != null) {
         setError("Invalid email or password");
         reset();
         return;
